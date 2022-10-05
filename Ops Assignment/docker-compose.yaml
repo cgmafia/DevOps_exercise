@@ -1,0 +1,19 @@
+version: '3'
+networks:
+  general:
+services:
+    nginx:
+        build: .docker
+        container_name: nginx-php
+        restart: always
+        ports:
+            - "8080:80"
+        volumes:
+            - .:/var/www/html
+            - ./.docker/conf/nginx/default.conf:/etc/nginx/conf.d/default.conf
+            - ./.docker/conf/php/php.ini:/usr/local/etc/php/conf.d/php.ini
+            - ./.docker/conf/php/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
+            - .:/var/log/nginx/
+            - .:/var/log/php/
+        networks:
+            - general
